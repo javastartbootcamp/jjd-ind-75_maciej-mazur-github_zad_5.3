@@ -10,12 +10,14 @@ class GrossPriceCalculator {
     double calculateGrossPrice(Product product) {
         String category = product.getCategory();
 
-        return switch (category) {
-            case Category.VEGETABLES -> (1 + VAT_1 / 100) * product.getNetPrice();
-            case Category.DAIRY -> (1 + VAT_2 / 100) * product.getNetPrice();
-            case Category.FURNITURE -> (1 + VAT_3 / 100) * product.getNetPrice();
-            case Category.ELECTRONICS -> (1 + VAT_4 / 100) * product.getNetPrice();
-            default -> (1 + VAT_STANDARD / 100) * product.getNetPrice();
+        double vat = switch (category) {
+            case Category.VEGETABLES -> VAT_1;
+            case Category.DAIRY -> VAT_2;
+            case Category.FURNITURE -> VAT_3;
+            case Category.ELECTRONICS -> VAT_4;
+            default -> VAT_STANDARD;
         };
+
+        return (1 + vat / 100) * product.getNetPrice();
     }
 }
